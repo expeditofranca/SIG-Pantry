@@ -1,5 +1,5 @@
-#include<stdio.h> // importa fun??es que podem ser ?teis ao projeto
-#include"cabecalhos.h"
+#include <stdio.h> // importa fun??es que podem ser ?teis ao projeto
+#include "modulo_cabecalhos.h"
 
 char tela_menu_principal(void){
   char op;
@@ -12,11 +12,9 @@ char tela_menu_principal(void){
   printf("***         1 - Sobre o Projeto                                             ***\n");
   printf("***         2 - Sobre a Equipe                                              ***\n");
   printf("***         3 - Modulo Item                                                 ***\n");
-  printf("***         4 - Relatorios                                                 ***\n");
-  printf("***         6 - Ver despensa atualizada                                     ***\n");
-  printf("***         7 - Gastos mensais atuais                                       ***\n");
-  printf("***         8 - Gastos mensais previos                                      ***\n");
-  printf("***         9 - Ranking de items consumidos                                 ***\n");
+  printf("***         4 - Modulo Entrada de Itens                                     ***\n");
+  printf("***         5 - Modulo Saida de Itens                                       ***\n");
+  printf("***         6 - Modulo Relatorios                                           ***\n");
   printf("***         0 - Sair                                                        ***\n");
   printf("***                                                                         ***\n");
   printf("***         Escolha a opcao desejada...                                     ***\n");
@@ -80,7 +78,7 @@ void tela_equipe(void) {
 void msg_escolha_invalida(void){
   printf("*******************************************************************************\n");
   printf("*******************************************************************************\n");
-  printf("***                            Escolha inv?lida!                            ***\n");
+  printf("***                            Escolha invalida!                            ***\n");
   printf("*******************************************************************************\n");
   printf("*******************************************************************************\n");
 }

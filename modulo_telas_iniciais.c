@@ -1,20 +1,46 @@
 #include <stdio.h> // importa fun??es que podem ser ?teis ao projeto
-#include "modulo_cabecalhos.h"
+
+void cabecalho_principal(void){
+  printf("*******************************************************************************\n");
+  printf("*******************************************************************************\n");
+  printf("***                                                                         ***\n");
+  printf("***               Universidade Federal do Rio Grande do Norte               ***\n");
+  printf("***                   Centro de Ensino Superior do Serido                   ***\n");
+  printf("***                 Departamento de Computacao e Tecnologia                 ***\n");
+  printf("***                    Disciplina DCT1106 -- Programacao                    ***\n");
+  printf("***             Projeto Sistema de Gestao de Despensa Domestica             ***\n");
+  printf("***            Developed by @expeditofranca -- since March, 2024            ***\n");
+  printf("***                                                                         ***\n");
+  printf("***                       Bem-vindo ao nosso sistema!                       ***\n");
+  printf("***                                                                         ***\n");
+  printf("*******************************************************************************\n");
+}
+
+void cabecalho_secundario(void){
+  printf("*******************************************************************************\n");
+  printf("*******************************************************************************\n");
+  printf("***                                                                         ***\n");
+  printf("***                       - - - - Xtore Phone - - - -                       ***\n");
+  printf("***                                                                         ***\n");
+  printf("***            Developed by @expeditofranca -- since March, 2024            ***\n");
+  printf("***                                                                         ***\n");
+  printf("*******************************************************************************\n");
+  printf("*******************************************************************************\n");
+}
 
 char tela_menu_principal(void){
   char op;
   cabecalho_principal();
   printf("*******************************************************************************\n");
-  printf("*******************************************************************************\n");
   printf("***                                                                         ***\n");
   printf("***         - - - - Sitema de Gestao de Despensa Domestica - - - -          ***\n");
   printf("***                                                                         ***\n");
-  printf("***         1 - Sobre o Projeto                                             ***\n");
-  printf("***         2 - Sobre a Equipe                                              ***\n");
-  printf("***         3 - Modulo Item                                                 ***\n");
-  printf("***         4 - Modulo Entrada de Itens                                     ***\n");
-  printf("***         5 - Modulo Saida de Itens                                       ***\n");
-  printf("***         6 - Modulo Relatorios                                           ***\n");
+  printf("***         1 - Modulo Item                                                 ***\n");
+  printf("***         2 - Modulo Entrada de Itens                                     ***\n");
+  printf("***         3 - Modulo Saida de Itens                                       ***\n");
+  printf("***         4 - Modulo Relatorios                                           ***\n");
+  printf("***         5 - Sobre o Projeto                                             ***\n");
+  printf("***         6 - Sobre a Equipe                                              ***\n");
   printf("***         0 - Sair                                                        ***\n");
   printf("***                                                                         ***\n");
   printf("***         Escolha a opcao desejada...                                     ***\n");
@@ -23,14 +49,11 @@ char tela_menu_principal(void){
   printf("*******************************************************************************\n");
   scanf("%c", &op);
   getchar();
-  printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-  getchar();
   return op;
 }
 
 void tela_sobre(void) {
   cabecalho_principal();
-  printf("*******************************************************************************\n");
   printf("*******************************************************************************\n");
   printf("***                                                                         ***\n");
   printf("***         - - - - Sitema de Gestao de Despensa Domestica - - - -          ***\n");
@@ -57,7 +80,6 @@ void tela_sobre(void) {
 void tela_equipe(void) {
   cabecalho_principal();
   printf("*******************************************************************************\n");
-  printf("*******************************************************************************\n");
   printf("***                                                                         ***\n");
   printf("***          - - - - Sitema de Gest?o de Despensa Dom?stica - - - -         ***\n");
   printf("***                                                                         ***\n");
@@ -79,6 +101,10 @@ void msg_escolha_invalida(void){
   printf("*******************************************************************************\n");
   printf("*******************************************************************************\n");
   printf("***                            Escolha invalida!                            ***\n");
+}
+
+void msg_deu_certo(void){
   printf("*******************************************************************************\n");
   printf("*******************************************************************************\n");
+  printf("***                       Acao realizada com sucesso!                       ***\n");
 }

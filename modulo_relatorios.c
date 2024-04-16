@@ -1,10 +1,10 @@
 #include <stdio.h>
-#include "modulo_cabecalhos.h"
+#include "modulo_telas_iniciais.h"
+#include "util.h"
 
 char tela_menu_relatorios(void){
   char op;
   cabecalho_principal();
-  printf("*******************************************************************************\n");
   printf("*******************************************************************************\n");
   printf("***                                                                         ***\n");
   printf("***                    - - - - Menu Relatorios - - - -                      ***\n");
@@ -21,14 +21,11 @@ char tela_menu_relatorios(void){
   printf("*******************************************************************************\n");
   scanf("%c", &op);
   getchar();
-  printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-  getchar();
   return op;
 }
 
 void tela_despensa_atual(void){
   cabecalho_principal();
-  printf("*******************************************************************************\n");
   printf("*******************************************************************************\n");
   printf("***                                                                         ***\n");
   printf("***                  - - - - Despensa Atualizada - - - -                    ***\n");
@@ -38,13 +35,10 @@ void tela_despensa_atual(void){
   printf("*******************************************************************************\n");
   printf("*******************************************************************************\n");
   getchar();
-  printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-  getchar();
 }
 
 void tela_gastos_atuais(void){
   cabecalho_principal();
-  printf("*******************************************************************************\n");
   printf("*******************************************************************************\n");
   printf("***                                                                         ***\n");
   printf("***                  - - - - Gastos do mes atual - - - -                    ***\n");
@@ -54,13 +48,10 @@ void tela_gastos_atuais(void){
   printf("*******************************************************************************\n");
   printf("*******************************************************************************\n");
   getchar();
-  printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-  getchar();
 }
 
 void tela_gastos_previos(void){
   cabecalho_principal();
-  printf("*******************************************************************************\n");
   printf("*******************************************************************************\n");
   printf("***                                                                         ***\n");
   printf("***               - - - - Gastos dos meses passados - - - -                 ***\n");
@@ -70,13 +61,10 @@ void tela_gastos_previos(void){
   printf("*******************************************************************************\n");
   printf("*******************************************************************************\n");
   getchar();
-  printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-  getchar();
 }
 
 void tela_itens_consumidos(void){
   cabecalho_principal();
-  printf("*******************************************************************************\n");
   printf("*******************************************************************************\n");
   printf("***                                                                         ***\n");
   printf("***                 - - - - Itens mais consumidos - - - -                   ***\n");
@@ -85,7 +73,5 @@ void tela_itens_consumidos(void){
   printf("***                                                                         ***\n");
   printf("*******************************************************************************\n");
   printf("*******************************************************************************\n");
-  getchar();
-  printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
   getchar();
 }

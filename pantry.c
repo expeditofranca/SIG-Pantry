@@ -1,5 +1,4 @@
 #include <stdio.h> // importa fun��es que podem ser �teis ao projeto
-#include "modulo_cabecalhos.h"
 #include "modulo_telas_iniciais.h"
 #include "modulo_item.h"
 #include "modulo_relatorios.h"
@@ -11,10 +10,6 @@ int main(void){
 
     while(op != '0'){
       if (op == '1') {
-        tela_sobre();
-      } else if (op == '2') {
-        tela_equipe();
-      } else if (op == '3') {
         char op2 = tela_menu_item();
 
         while(op2 != '0'){
@@ -32,11 +27,11 @@ int main(void){
 
           op2 = tela_menu_item();
         }
-      } else if (op == '4') {
+      } else if (op == '2') {
         char op2 = tela_menu_entrada();
 
         while(op2 != '0'){
-          if (op2 == 1) {
+          if (op2 == '1') {
             tela_adicionar_item();
           } else {
             msg_escolha_invalida();
@@ -44,7 +39,7 @@ int main(void){
 
           op2 = tela_menu_entrada();
         }
-      } else if (op == '5') {
+      } else if (op == '3') {
         char op2 = tela_menu_saida();
 
         while(op2 != '0'){
@@ -56,7 +51,7 @@ int main(void){
 
           op2 = tela_menu_saida();
         }
-      } else if (op == '6') {
+      } else if (op == '4') {
         char op2 = tela_menu_relatorios();
 
         while(op2 != '0'){
@@ -74,6 +69,10 @@ int main(void){
 
           op2 = tela_menu_relatorios();
         }
+      } else if (op == '5') {
+        tela_sobre();
+      } else if (op == '6') {
+        tela_equipe();
       } else {
         msg_escolha_invalida();  
       }

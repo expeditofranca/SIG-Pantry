@@ -1,6 +1,8 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "modulo_telas_iniciais.h"
 #include "util.h"
+#include "modulo_entrada.h"
 
 char tela_menu_entrada(void){
   char op;
@@ -22,8 +24,10 @@ char tela_menu_entrada(void){
 }
 
 void tela_adicionar_item(void){
-  char cod_barras[13];
-  char qntd[4];
+  Entrada *entrada;
+  entrada = (Entrada*) malloc(sizeof(Entrada));
+  FILE *fp;
+  fp = fopen("entradas.txt", "ab");
 
   cabecalho_principal();
   printf("*******************************************************************************\n");
@@ -33,22 +37,26 @@ void tela_adicionar_item(void){
   printf("*******************************************************************************\n");
   printf("*******************************************************************************\n");
   printf("Cod. barras do item: ");
-  scanf("%s", cod_barras);
+  scanf("%s", entrada->cod_barras);
   getchar();
-  while(!ehNum(cod_barras)){
-    printf("Codigo de barras invalido! Digite novamente!");
-    scanf("%s", cod_barras);
+  while(!ehNum(entrada->cod_barras)){
+    printf("Codigo de barras invalido! Digite novamente!\n");
+    scanf("%s", entrada->cod_barras);
     getchar();
   }
 
   printf("Quantidade de unidades do item: ");
-  scanf("%s", qntd);
+  scanf("%s", entrada->qntd);
   getchar();
-  while(!ehNum(qntd)){
+  while(!ehNum(entrada->qntd)){
     printf("Quantidade invalida! Digite novamente!\n");
-    scanf("%s", qntd);
+    scanf("%s", entrada->qntd);
     getchar();
   }
+
+  fwrite(entrada, sizeof(Entrada), 1, fp);
+  fclose(fp);
+  free(entrada);
   
   msg_deu_certo();
 }

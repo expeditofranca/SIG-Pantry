@@ -1,6 +1,8 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "modulo_telas_iniciais.h"
 #include "util.h"
+#include "modulo_saida.h"
 
 char tela_menu_saida(void){
   char op;
@@ -17,12 +19,15 @@ char tela_menu_saida(void){
   printf("*******************************************************************************\n");
   printf("*******************************************************************************\n");
   scanf("%c", &op);
+  getchar();
   return op;
-}
+};
 
 void tela_retirar_item(void){
-  char cod_barras[13];
-  char qntd[4];
+  Saida *saida;
+  saida = (Saida*) malloc(sizeof(Saida));
+  FILE *fp;
+  fp = fopen("saidas.txt", "ab");
   
   cabecalho_principal();
   printf("*******************************************************************************\n");
@@ -32,20 +37,26 @@ void tela_retirar_item(void){
   printf("*******************************************************************************\n");
   printf("*******************************************************************************\n");
   printf("Cod. barras do item: ");
-  scanf("%s", cod_barras);
+  scanf("%s", saida->cod_barras);
   getchar();
-  while(!ehNum(cod_barras)){
-    printf("Codigo de barras invalido! Digite novamente!");
-    scanf("%s", cod_barras);
+  while(!ehNum(saida->cod_barras)){
+    printf("Codigo de barras invalido! Digite novamente!\n");
+    scanf("%s", saida->cod_barras);
     getchar();
   }
 
   printf("Quantidade de unidades do item: ");
-  scanf("%s", qntd);
+  scanf("%s", saida->qntd);
   getchar();
-  while(!ehNum(qntd)){
-    printf("Quantidade invalida! Digite novamente!");
-    scanf("%s", qntd);
+  while(!ehNum(saida->qntd)){
+    printf("Quantidade invalida! Digite novamente!\n");
+    scanf("%s", saida->qntd);
     getchar();
   }
+
+  fwrite(saida, sizeof(saida), 1, fp);
+  fclose(fp);
+  free(saida);
+
+  msg_deu_certo();
 }

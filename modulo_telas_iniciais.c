@@ -88,7 +88,7 @@ void tela_equipe(void) {
   printf("***          Expedito Luiz de Fran?a Neto                                   ***\n");
   printf("***          E-mail: francaexpedito11@gmail.com                             ***\n");
   printf("***          Redes Sociais: @expeditofranca (Git)                           ***\n");
-  printf("***          Reposit?rio: https://github.com/expeditofranca/SIG-Pantry      ***\n");
+  printf("***          Repositorio: https://github.com/expeditofranca/SIG-Pantry      ***\n");
   printf("***                                                                         ***\n");
   printf("*******************************************************************************\n");
   printf("*******************************************************************************\n");

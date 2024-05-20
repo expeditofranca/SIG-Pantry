@@ -29,7 +29,7 @@ void tela_adicionar_item(void){
   Entrada *entrada;
   entrada = (Entrada*) malloc(sizeof(Entrada));
   FILE *fp;
-  fp = fopen("entradas.txt", "ab");
+  fp = fopen("entradas.dat", "ab");
 
   cabecalho_principal();
   printf("*******************************************************************************\n");

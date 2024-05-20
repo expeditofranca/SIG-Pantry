@@ -29,7 +29,7 @@ void tela_retirar_item(void){
   Saida *saida;
   saida = (Saida*) malloc(sizeof(Saida));
   FILE *fp;
-  fp = fopen("saidas.txt", "ab");
+  fp = fopen("saidas.dat", "ab");
   
   cabecalho_principal();
   printf("*******************************************************************************\n");

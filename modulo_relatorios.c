@@ -1,6 +1,11 @@
 #include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 #include "modulo_telas_iniciais.h"
 #include "util.h"
+#include "modulo_entrada.h"
+#include "modulo_saida.h"
+#include "modulo_item.h"
 
 char tela_menu_relatorios(void){
   char op;
@@ -35,6 +40,26 @@ void tela_despensa_atual(void){
   printf("*******************************************************************************\n");
   printf("*******************************************************************************\n");
   getchar();
+
+  Entrada *entrada;
+  entrada = (Entrada*) malloc(sizeof(Entrada));
+  Item *item;
+  item = (Item*) malloc(sizeof(Item));
+  FILE *fe;
+  fe = fopen("entradas.dat", "rb");
+  FILE *fi;
+  fi = fopen("itens.dat", "rb");
+
+  while(fread(entrada, sizeof(Entrada), 1, fe)){
+    while(fread(item, sizeof(Item), 1, fi)){
+      if(strcmp(entrada->cod_barras, item->cod_barras) == 0){
+        printf("%s", item->nome);
+        printf("%s", item->marca);
+        printf("%d", entrada->qntd);
+        printf("*******************************************************************************\n");
+      }
+    }
+  }
 }
 
 void tela_gastos_atuais(void){
@@ -74,4 +99,16 @@ void tela_itens_consumidos(void){
   printf("*******************************************************************************\n");
   printf("*******************************************************************************\n");
   getchar();
+
+  Saida *saida;
+  saida = (Saida*) malloc(sizeof(Saida));
+  FILE *fs;
+  fs = fopen("saidas.dat", "rb");
+  int maior_s = 0;
+
+  while(fread(saida, sizeof(Saida), 1, fs)){
+    if(saida->qntd > maior_s){
+      maior_s = saida->qntd;
+    }
+  }
 }

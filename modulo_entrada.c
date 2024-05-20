@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <time.h>
 #include "modulo_telas_iniciais.h"
 #include "util.h"
 #include "modulo_entrada.h"
@@ -45,14 +47,22 @@ void tela_adicionar_item(void){
     getchar();
   }
 
+  char qntd;
   printf("Quantidade de unidades do item: ");
-  scanf("%s", entrada->qntd);
+  scanf("%s", &qntd);
   getchar();
-  while(!ehNum(entrada->qntd)){
+  while(!ehNum(&qntd)){
     printf("Quantidade invalida! Digite novamente!\n");
-    scanf("%s", entrada->qntd);
+    scanf("%s", &qntd);
     getchar();
   }
+  entrada->qntd = atoi(&qntd);
+
+  time_t t = time(NULL);
+  struct tm tm = *localtime(&t);
+  char data[11];
+  sprintf(data, "%02d/%02d/%04d", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900);
+  strcpy(entrada->data, data);
 
   fwrite(entrada, sizeof(Entrada), 1, fp);
   fclose(fp);

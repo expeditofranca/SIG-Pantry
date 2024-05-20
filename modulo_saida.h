@@ -4,6 +4,7 @@ void tela_retirar_item(void);
 typedef struct saida Saida;
 
 struct saida {
-    char cod_barras[13];
-    char qntd[4];
+    char cod_barras[14];
+    int qntd;
+    char data[11];
 };

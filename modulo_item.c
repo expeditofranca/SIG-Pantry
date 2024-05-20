@@ -32,8 +32,6 @@ void tela_cadastrar_item(void){
   cod_barras = (char*) malloc(13*sizeof(char));
   Item *item;
   item = (Item*) malloc(sizeof(Item));
-  FILE *fp;
-  fp = fopen("itens.dat", "ab");
 
   cabecalho_principal();
   printf("*******************************************************************************\n");
@@ -60,14 +58,17 @@ void tela_cadastrar_item(void){
     getchar();
   }
 
+  char preco[] = "";
   printf("Valor do item: ");
-  scanf("%s", item->preco);
+  scanf("%s", preco);
   getchar();
-  while(!validaPreco(item->preco)){
+  while(!validaPreco(preco)){
     printf("Preco invalido! Digite novamente!\n");
-    scanf("%s", item->preco);
+    scanf("%s", preco);
     getchar();
   }
+  item->preco = strtof(preco, NULL);
+  printf("%f", item->preco);
 
   printf("Marca do item: ");
   scanf("%s", item->marca);
@@ -77,12 +78,22 @@ void tela_cadastrar_item(void){
   scanf("%s", item->validade);
   getchar();
 
+  char avaliacao[] = {};
   printf("Avaliacao do item (0 a 5): ");
-  scanf("%s", item->avaliacao);
+  scanf("%s", avaliacao);
   getchar();
+  while(!ehNum(avaliacao)){
+    printf("Informacao invalida! Digite novamente!");
+    scanf("%s", avaliacao);
+    getchar();
+  }
+  item->avaliacao = atoi(avaliacao);
 
   strcpy(item->cod_barras, cod_barras);
+  item->status = 1;
 
+  FILE *fp;
+  fp = fopen("itens.dat", "ab");
   fwrite(item, sizeof(Item), 1, fp);
   fclose(fp);
   free(item);
@@ -96,8 +107,6 @@ void tela_pesquisar_item(void){
   cod_barras = (char*) malloc(13*sizeof(char));
   Item *item;
   item = (Item*) malloc(sizeof(Item));
-  FILE *fp;
-  fp = fopen("itens.dat", "rb");
 
   cabecalho_principal();
   printf("*******************************************************************************\n");
@@ -115,14 +124,18 @@ void tela_pesquisar_item(void){
     getchar();
   }
 
+  FILE *fp;
+  fp = fopen("itens.dat", "rb");
+  
   while(fread(item, sizeof(Item), 1, fp)){
-    if(strcmp(item->cod_barras, cod_barras) == 1){
+    if(strcmp(item->cod_barras, cod_barras) == 0){
       printf("Cod. barras: %s\n", item->cod_barras);
       printf("Nome: %s\n", item->nome);
       printf("Marca: %s\n", item->marca);
-      printf("Preco: %s\n", item->preco);
+      printf("Preco: %.2f\n", item->preco);
       printf("Validade: %s\n", item->validade);
-      printf("Avaliacao: %s\n", item->avaliacao);
+      printf("Avaliacao: %d\n", item->avaliacao);
+      printf("Status: %d\n", item->status);
     }
   }
 
@@ -164,10 +177,10 @@ void tela_atualizar_item(void){
       fwrite(item, sizeof(Item), 1, f);
     } else {
       char op;
-      printf("O que deseja alterar? \n1 - Nome\n2 - Preco\n3 - Marca\n4 - Validade\n5 - Avaliacao\n");
+      printf("O que deseja alterar? \n1 - Nome\n2 - Preco\n3 - Marca\n4 - Validade\n5 - Avaliacao\n6 - Status\n");
       scanf("%s", &op);
       getchar();
-      while(!ehNum(&op) || op < '1' || op > '5'){
+      while(!ehNum(&op) || op < '1' || op > '6'){
         printf("Escolha inválida! Digite novamente: ");
         scanf("%s", &op);
         getchar();
@@ -182,27 +195,48 @@ void tela_atualizar_item(void){
           scanf("%s", item->nome);
           getchar();
         }
+        printf("Nome do item alterado com sucesso.");
       } else if (op == '2'){
+        char preco;
         printf("Digite o novo preco: ");
-        scanf("%s", item->preco);
+        scanf("%s", &preco);
         getchar();
-        while(!validaPreco(item->preco)){
+        while(!validaPreco(&preco)){
           printf("Preco inválido! Digite novamente: ");
-          scanf("%s", item->preco);
+          scanf("%s", &preco);
           getchar();
         }
+        item->preco = strtof(&preco, NULL);
+        printf("Preco do item alterado com sucesso.");
       } else if (op == '3'){
         printf("Digite a marca: ");
         scanf("%s", item->marca);
         getchar();
+        printf("Marca do item alterada com sucesso.");
       } else if (op == '4'){
         printf("Digite a validade: ");
         scanf("%s", item->validade);
         getchar();
+        printf("Validade do item alterada com sucesso.");
       } else if (op == '5'){
+        char avaliacao[2];
         printf("Digite a avaliacao: ");
-        scanf("%s", item->avaliacao);
+        scanf("%s", avaliacao);
         getchar();
+        while(!ehNum(avaliacao)){
+          printf("Informacao inválida! Digite novamente!");
+          scanf("%s", avaliacao);
+          getchar();
+        }
+        item->avaliacao = atoi(avaliacao);
+        printf("Avaliacao do item alterada com sucesso.");
+      } else if (op == '6'){
+        if(item->status == 1){
+          item->status = 0;
+        } else {
+          item->status = 1;
+        }
+        printf("Status do item alterado com sucesso.");
       }
       fwrite(item, sizeof(Item), 1, f);
     }
@@ -219,12 +253,9 @@ void tela_atualizar_item(void){
 }
 
 void tela_excluir_item(void){
+  char op;
   char *cod_barras;
   cod_barras = (char*) malloc(13*sizeof(char));
-  FILE *fp;
-  fp = fopen("itens.dat", "rb");
-  FILE *f;
-  f = fopen("temp.dat", "wb");
   Item *item;
   item = (Item*) malloc(sizeof(Item));
 
@@ -243,12 +274,35 @@ void tela_excluir_item(void){
     scanf("%s", cod_barras);
     getchar();
   }
+  printf("1 - Excluir permanentemente\n2 - Desativar o status ON do registro:\n");
+  scanf("%s", &op);
+  getchar();
+  while(!ehNum(&op) || op < '1' || op > '2'){
+    printf("Escolha inválida! Digite novamente: ");
+    scanf("%s", &op);
+    getchar();
+  }
 
-  while(fread(item, sizeof(Item), 1, fp)){
-    if(strcmp(item->cod_barras, cod_barras) != 0){
+  FILE *fp;
+  fp = fopen("itens.dat", "rb");
+  FILE *f;
+  f = fopen("temp.dat", "wb");
+
+  if(op == '1'){
+    while(fread(item, sizeof(Item), 1, fp)){
+      if(strcmp(item->cod_barras, cod_barras) != 0){
+        fwrite(item, sizeof(Item), 1, f);
+      }
+    }
+  } else {
+    while(fread(item, sizeof(Item), 1, fp)){
+      if(strcmp(item->cod_barras, cod_barras) == 0){
+        item->status = '0';
+      }
       fwrite(item, sizeof(Item), 1, f);
     }
   }
+
   fclose(fp);
   fclose(f);
   free(item);
